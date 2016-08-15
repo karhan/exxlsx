@@ -17,7 +17,7 @@ spl_autoload_register();
 
 $oApplication = new Application(parse_ini_file("routes.ini", TRUE), parse_ini_file("settings.ini", TRUE));
 //---
-
+/*upd 11:19*/
  
 
 try {
