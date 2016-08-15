@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html >
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Sənədin eksportu</title>
+
+        <script type="text/javascript" src="<?php echo 'Assets/js/jquery-3.1.0.min.js' ?>" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="<?php echo 'Assets/css/bootstrap.min.css' ?>" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <style type="text/css">
+            body {
+                margin: 50px 20px;
+            }
+
+            textarea {
+                resize: none;
+            }
+
+            .sortComponent {
+                margin: 0;
+                padding: 10px 0;
+                list-style: none;
+            }
+
+            .sortComponent__item {
+                display: inline-block;
+            }
+            
+            .sortComponent__item--active {
+                font-weight: bold;
+            }
+
+            .sortComponent__item + .sortComponent__item {
+                margin-left: 10px;
+            }
+
+            .thumbnail {
+                max-width: 320px;
+            }
+
+            .loadingIndicator {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 100;
+                margin: auto;
+                width: 128px;
+                height: 128px;
+                position: fixed;
+            }
+        </style>
+
+ 
+    </head>
+    
+    <body >
+         
+        <div class="container">
+            
+
+         
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="text-danger hidden" id="warning-component"></ul>                    
+                </div>
+            </div>
+
+            <div class="row">
+                 
+                
+                
+                <form class="form-horizontal" action="export" method="post">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Müqavilənin eksportu</legend>
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="cname">Ad</label>  
+                          <div class="col-md-4">
+                             <input id="cname" name="cname" placeholder="ASA" class="form-control input-md" type="text"> 
+                          </div>
+                        </div>
+                        <!-- Select CO -->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="selectco">Kredit mütəxəssisi</label>
+                          <div class="col-md-4">
+                            <select id="selectco" name="selectco" class="form-control">
+                                <?php foreach ($cOfficers as $cOfficer): ?> 
+                                    <option value="<?=$cOfficer["id"]?>"><?=$cOfficer["name"]?></option>
+                                <?php endforeach ?>
+                            </select>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="form-component-submit">Eksport</button> 
+                    </fieldset>
+                </form>
+                
+            </div>
+        </div>
+    </body>
+</html>

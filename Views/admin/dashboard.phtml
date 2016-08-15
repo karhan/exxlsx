@@ -1,0 +1,105 @@
+<html >
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title >Контрольная панель</title>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+        <style type="text/css">
+            body {
+                margin: 50px 20px;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .row + .row {
+                margin-top: 15px;
+            }
+        </style>
+        
+        <script type="text/javascript">
+            (function () {
+                function onLoad() {
+                    function onKeyDown(__o_event) {
+                        if (13 === __o_event.keyCode) {
+                            var __o_target = $(__o_event.target), __n_id = __o_target.data("id"), __s_value = __o_target.off("keydown", onKeyDown).val();
+                            ///
+                            __o_target.parent().text(__s_value);
+                            ///
+                            $.post("/admin/review/", {"id": __n_id, "text": __s_value}); // должен быть PUT, но неохота возиться с параметрами через file_get_contents("php://input")
+                        }
+                    }
+                    //---
+                    
+                    $("input:checkbox").on("change", function (__o_event) {
+                        var __o_target = $(__o_event.target);
+                        ///
+                        $.post("/admin/review/", {"id": __o_target.data("id"), "status": __o_target.prop("checked") ? 1 : 0});
+                    });
+                    //---
+                    
+                    $("a.action-edit-text").on("click", function (__o_event) {                        
+                        var __o_target = $(__o_event.target);
+                        ///
+                        __o_event.preventDefault();
+                        ///
+                        $(("#row_").concat(__o_target.data("id"), " > td.text")).wrapInner($("<textarea class=\"form-control\">").data("id", __o_target.data("id")).on("keydown", onKeyDown)).append("<div class=\"text-muted\"><small >* для завершения правки нажмите клавишу Ввод</small></div>");
+                    });
+                }
+                ///
+                $(onLoad);
+            }());
+        </script>
+    </head>
+    
+    <body >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-11 col-md-1">
+                    <a href="/admin/logout/">Выйти</a>
+                </div>
+            </div>
+            
+            <div class="row">      
+                <form method="post">                    
+                    <table class="table-striped col-md-12">  
+                        <tr >
+                            <th >Активность</th>
+                            <th >Состояние</th>
+                            <th >Дата</th>
+                            <th >Имя</th>
+                            <th >E-mail</th>
+                            <th >Текст</th>
+                            <th >Изображение</th>
+                            <th >Действия</th>
+                        </tr>
+
+                        <?php foreach ($aReviews as $oReview): ?>
+                            <tr id="row_<?=$oReview["id"]?>">
+                                <td >
+                                    <input type="checkbox" <?php if ((boolean) $oReview["status"]): ?>checked="checked"<?php endif ?> class="form-control" data-id="<?=$oReview["id"]?>">
+                                </td>
+                                <td ><?=$oReview["state"]?></td>
+                                <td ><?=date("d.m.y, h:i", $oReview["date"] / 1000)?></td>
+                                <td ><?=$oReview["name"]?></td>
+                                <td ><?=$oReview["email"]?></td>
+                                <td class="text"><?=$oReview["text"]?></td>
+                                <td >
+                                    <?php if (! empty($oReview["image"])): ?><img src="/static/images/<?=$oReview["image"]?>"><?php endif ?>
+                                </td>
+                                <td >
+                                    <a href="#" class="action-edit-text" data-id="<?=$oReview["id"]?>">Править текст</a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </table>
+                </form>
+            </div>            
+        </div>        
+    </body>
+</html>

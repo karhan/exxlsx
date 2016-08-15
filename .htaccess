@@ -1,0 +1,11 @@
+Options -Indexes
+
+AddDefaultCharset UTF-8
+
+RewriteEngine On  
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php?request=$1 [NS,QSA,PT,L]
+
+php_value output_handler ob_gzhandler

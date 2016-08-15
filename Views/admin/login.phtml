@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title >Вход для администратора</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+        <style type="text/css">
+            body {
+                margin: 50px 20px;
+            }
+        </style>
+    </head>
+    
+    <body >
+        <div class="container">
+            <?php if (! empty($sMessage)): ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning"><?=$sMessage?></div>                    
+                    </div>
+                </div>
+            <?php endif ?>
+
+            <div class="row">
+                <form action="/admin" method="post" class="col-md-offset-4 col-md-4">
+                    <div class="form-group">
+                        <label for="login">Имя пользователя:</label>
+                        <input id="login" name="login" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" name="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
