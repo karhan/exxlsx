@@ -42,14 +42,14 @@ namespace Controllers{
         public function GenerateFile() {
             $this->objPHPExcel = $this->objReader->load("Assets/file/template.xls");
             $this->objWriter = \PHPExcel_IOFactory::createWriter( $this->objPHPExcel , 'Excel2007');
-            $this->objDrawing = new \PHPExcel_Worksheet_Drawing(); 
-            $this->objPHPExcel->setActiveSheetIndexByName('data')->setCellValue('A1', '555');
-            $this->objPHPExcel->setActiveSheetIndexByName('pb'); 
-            $this->objDrawing->setName('My Image');
+            //$this->objDrawing = new \PHPExcel_Worksheet_Drawing(); 
+           // $this->objPHPExcel->setActiveSheetIndexByName('data')->setCellValue('A1', '555');
+           // $this->objPHPExcel->setActiveSheetIndexByName('pb'); 
+            /*$this->objDrawing->setName('My Image');
             $this->objDrawing->setDescription('The Image that I am inserting');
             $this->objDrawing->setPath('Assets/images/imgf.png');
             $this->objDrawing->setCoordinates('B2');
-            $this->objDrawing->setWorksheet($this->objPHPExcel->getActiveSheet()); 
+            $this->objDrawing->setWorksheet($this->objPHPExcel->getActiveSheet()); */
 
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 

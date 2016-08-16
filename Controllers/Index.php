@@ -22,7 +22,8 @@ namespace Controllers {
         public function index() {
             try {
                 $this->_oTemplate->cOfficers = $this->__oPdo->query("SELECT id,name FROM branch_co WHERE id>1000 ORDER BY name ASC")->fetchAll();
-                } catch (\PDOException $oPDOException) {
+                } 
+            catch (\PDOException $oPDOException) {
             }
             return $this->_oTemplate->render("Views/index.phtml");
         }
